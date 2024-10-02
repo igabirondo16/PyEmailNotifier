@@ -26,6 +26,7 @@ Created by Iñigo Gabirondo López.
 
 import traceback
 import os
+import inspect
 
 from py_email_notifier.src.stdout_capturer import StdoutCapturer
 from py_email_notifier.src.email_sender import EmailSender
@@ -33,7 +34,7 @@ from py_email_notifier.src.email_sender import EmailSender
 def send_result_email(
     sender_email: str,
     receiver_email: str,
-    password: str
+    password: str,
 ):
     """Python decorator for sending the result of the function
     by email.
@@ -43,6 +44,18 @@ def send_result_email(
         receiver_email (str): Email that receives the result.
         password (str): Password of the sending email.
     """
+
+    def get_script_name(func):
+        try:
+            script_name = inspect.getsourcefile(func)
+
+        except TypeError:
+            script_name = None
+
+        if script_name:
+            return os.path.basename(script_name)
+
+        return None
 
     def decorator(func):
         def wrapper():
@@ -59,12 +72,15 @@ def send_result_email(
                 password=password
             )
 
-            filename = os.path.basename(__file__)
+            script_name = get_script_name(func)
+            if script_name is None:
+                script_name = "Unknown"
+
             function_name = func.__name__
 
             email_sender.send_email(
                 function_name=function_name,
-                script_name=filename,
+                script_name=script_name,
                 message_text=output
             )
 
