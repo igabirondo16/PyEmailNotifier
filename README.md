@@ -9,20 +9,13 @@ PyEmailNotifier has been designed to send by email the result of the experiments
 
 ## Getting started
 
-First, clone the github repository:
+Install the module using pip:
 
 ```shell
-$: git clone https://github.com/igabirondo16/PyEmailNotifier.git
+$: pip install pip install py-email-notifier
 ```
 
-After, install the python module in your local virtual environment:
-
-```shell
-$: cd ./PyEmailNotifier
-$: pip install .
-```
-
-Finally, use the module as a common decorator:
+Use the module as a common decorator:
 
 ```python
 from dotenv import dotenv_values
