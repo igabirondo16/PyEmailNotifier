@@ -12,7 +12,7 @@ PyEmailNotifier has been designed to send by email the result of the experiments
 Install the module using pip:
 
 ```shell
-$: pip install pip install py-email-notifier
+$: pip install py-email-notifier
 ```
 
 Use the module as a common decorator:
